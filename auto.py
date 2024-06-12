@@ -22,7 +22,7 @@ for username in all_usernames:
 
     pyautogui.moveTo(721, 671, duration=0.2)
     pyautogui.click()
-     
+    
     pyautogui.moveTo(771, 502, duration=0.2)
     pyautogui.click()
     time.sleep(1)
