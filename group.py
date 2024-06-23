@@ -11,7 +11,7 @@ group_id = "https://t.me/nwtchat"
 phone_number = +254729566037 
 
 # Path to the CSV file containing contacts
-csv_file_path = 'telegram_contacts.csv'
+csv_file_path = 'new_data.csv'
 
 # Create a new Telegram client
 client = TelegramClient('sesh_name', api_id, api_hash)
