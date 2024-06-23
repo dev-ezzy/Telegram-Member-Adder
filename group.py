@@ -7,7 +7,7 @@ import asyncio
 # Replace 'YOUR_API_ID', 'YOUR_API_HASH', and 'YOUR_GROUP_ID' with your actual credentials and group ID
 api_id = 20933231
 api_hash = "819cc5a69681316de7026e1b5b967b6d"
-group_id = "New Woke Times chat"  # Use the group's username or ID
+group_id = "https://t.me/nwtchat"
 phone_number = +254729566037 
 
 # Path to the CSV file containing contacts
