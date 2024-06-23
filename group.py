@@ -1,14 +1,15 @@
 import pandas as pd
 from telethon import TelegramClient
 from telethon.tl.functions.channels import InviteToChannelRequest
-from telethon.tl.types import InputPeerUser, InputPeerChannel, InputChannel
+from telethon.tl.types import InputPeerUser
 import asyncio
+import time  # for delays
 
-# Replace 'YOUR_API_ID', 'YOUR_API_HASH', and 'YOUR_GROUP_ID' with your actual credentials and group ID
+# Replace 'YOUR_API_ID', 'YOUR_API_HASH', 'YOUR_GROUP_ID', and 'YOUR_PHONE_NUMBER' with your actual credentials
 api_id = 20933231
 api_hash = "819cc5a69681316de7026e1b5b967b6d"
-group_id = "https://t.me/nwtchat"
-phone_number = +254729566037 
+group_id = 'https://t.me/nwtchat'  # Replace with your group invite link or ID
+phone_number = '+254729566037'  # Replace with your registered phone number
 
 # Path to the CSV file containing contacts
 csv_file_path = 'new_data.csv'
@@ -28,14 +29,30 @@ async def add_users_to_group():
     # Iterate through the contacts and add them to the group
     for index, row in contacts_df.iterrows():
         try:
+            if pd.isna(row['username']):
+                print(f"Skipping row {index + 1}: Username is missing.")
+                continue
+            
             if row['username']:
-                user = await client.get_entity(row['username'])
+                user = await client.get_input_entity(row['username'])
             else:
-                user = InputPeerUser(row['id'], row['access_hash'])
+                print(f"Skipping row {index + 1}: Username is missing.")
+                continue
+            
             await client(InviteToChannelRequest(group, [user]))
             print(f"Added {row['first_name']} {row['last_name']} ({row['username']}) to the group")
+            
+            # Introduce a delay between requests to respect rate limits
+            await asyncio.sleep(5)  # Adjust the delay as necessary
+            
         except Exception as e:
-            print(f"Failed to add {row['first_name']} {row['last_name']} ({row['username']}): {e}")
+            if "FloodWaitError" in str(e):
+                wait_seconds = int(e.split("for ")[-1].split(" seconds")[0])
+                print(f"Rate limited. Waiting for {wait_seconds} seconds.")
+                time.sleep(wait_seconds)
+                await client(InviteToChannelRequest(group, [user]))  # Retry after waiting
+            else:
+                print(f"Failed to add {row['first_name']} {row['last_name']} ({row['username']}): {e}")
 
     await client.disconnect()
 
