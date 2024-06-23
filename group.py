@@ -1,6 +1,6 @@
 import pandas as pd
 from telethon import TelegramClient
-from telethon.tl.functions.channels import InviteToChannel
+from telethon.tl.functions.channels import InviteToChannelRequest
 from telethon.tl.types import InputPeerUser, InputPeerChannel, InputChannel
 import asyncio
 
@@ -32,7 +32,7 @@ async def add_users_to_group():
                 user = await client.get_entity(row['username'])
             else:
                 user = InputPeerUser(row['id'], row['access_hash'])
-            await client(InviteToChannel(group, [user]))
+            await client(InviteToChannelRequest(group, [user]))
             print(f"Added {row['first_name']} {row['last_name']} ({row['username']}) to the group")
         except Exception as e:
             print(f"Failed to add {row['first_name']} {row['last_name']} ({row['username']}): {e}")
