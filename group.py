@@ -2,6 +2,7 @@ import pandas as pd
 from telethon import TelegramClient
 from telethon.tl.functions.channels import InviteToChannelRequest
 from telethon.tl.types import InputPeerUser
+from telethon.errors import UserDeletedError, UserBlockedError
 import asyncio
 import time  # for delays
 
