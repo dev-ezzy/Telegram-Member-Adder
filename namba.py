@@ -7,10 +7,10 @@ api_id = 20933231
 api_hash = "819cc5a69681316de7026e1b5b967b6d"
 
 # Create a new Telegram client
-client = TelegramClient('session_three', api_id, api_hash)
+client = TelegramClient('session_sunday', api_id, api_hash)
 
 async def fetch_contacts():
-    await client.start(phone= +254729566037)
+    await client.start(phone= +254718591351)
 
     # Fetch contacts
     result = await client(GetContactsRequest(hash=0))
@@ -31,7 +31,7 @@ async def fetch_contacts():
     contacts_df = pd.DataFrame(contacts_data)
 
     # Save DataFrame to a CSV file
-    contacts_df.to_csv('tele_contacts.csv', index=False)
+    contacts_df.to_csv('sunday_contacts.csv', index=False)
 
     await client.disconnect()
 
