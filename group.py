@@ -16,7 +16,7 @@ phone_number = '+254729566037'  # Replace with your registered phone number
 csv_file_path = 'sunday_contacts.csv'
 
 # Create a new Telegram client
-client = TelegramClient('sunday_two', api_id, api_hash)
+client = TelegramClient('sunday_kid', api_id, api_hash)
 
 async def add_users_to_group():
     await client.start(phone=phone_number)
@@ -25,7 +25,7 @@ async def add_users_to_group():
     group = await client.get_entity(group_id)
 
     # Read contacts from the CSV file
-    contacts_df = pd.read_csv("sunday_contacts.csv")
+    contacts_df = pd.read_csv(csv_file_path)
 
     # Iterate through the contacts and add them to the group
     base_delay = 1  # Initial delay in seconds
@@ -35,7 +35,7 @@ async def add_users_to_group():
                 print(f"Skipping row {index + 1}: Username is missing.")
                 continue
 
-            user = await client.get_entity(row['username'], check_status=True)  # Check user status
+            user = await client.get_entity(row['username'])  # Check user status
 
             # Handle specific errors (optional)
             if isinstance(user, (UserDeletedError, UserBlockedError)):
@@ -47,7 +47,8 @@ async def add_users_to_group():
             await asyncio.sleep(base_delay)  # Delay with backoff
         except Exception as e:
             if "FloodWaitError" in str(e):
-                wait_seconds = int(e.split("for ")[-1].split(" seconds")[0])
+                # wait_seconds = int(e.split("for ")[-1].split(" seconds")[0])
+                wait_seconds = 5
                 print(f"Rate limited. Waiting for {wait_seconds} seconds.")
                 time.sleep(wait_seconds)
             else:
