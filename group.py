@@ -9,13 +9,13 @@ import time  # for delays
 api_id = 20933231
 api_hash = "819cc5a69681316de7026e1b5b967b6d"
 group_id = 'https://t.me/nwtchat'  # Replace with your group invite link or ID
-phone_number = '+254729566037'  # Replace with your registered phone number
+phone_number = '+254718591351'  # Replace with your registered phone number
 
 # Path to the CSV file containing contacts
-csv_file_path = 'new_data.csv'
+csv_file_path = 'sunday_contacts.csv'
 
 # Create a new Telegram client
-client = TelegramClient('fifty_five', api_id, api_hash)
+client = TelegramClient('sunday_session', api_id, api_hash)
 
 async def add_users_to_group():
     await client.start(phone=phone_number)
