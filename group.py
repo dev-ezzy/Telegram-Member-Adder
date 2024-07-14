@@ -16,7 +16,7 @@ phone_number = '+254729566037'  # Replace with your registered phone number
 csv_file_path = 'new_contacts.csv'
 
 # Create a new Telegram client
-client = TelegramClient('kidding', api_id, api_hash)
+client = TelegramClient('mambo_ni_live', api_id, api_hash)
 
 async def add_users_to_group():
     await client.start(phone=phone_number)
