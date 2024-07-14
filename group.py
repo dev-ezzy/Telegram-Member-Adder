@@ -13,7 +13,7 @@ group_id = 'https://t.me/nwtchat'  # Replace with your group invite link or ID
 phone_number = '+254729566037'  # Replace with your registered phone number
 
 # Path to the CSV file containing contacts
-csv_file_path = 'sunday_contacts.csv'
+csv_file_path = 'new_contacts.csv'
 
 # Create a new Telegram client
 client = TelegramClient('kidding', api_id, api_hash)
