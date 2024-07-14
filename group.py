@@ -16,7 +16,7 @@ phone_number = '+254729566037'  # Replace with your registered phone number
 csv_file_path = 'sunday_contacts.csv'
 
 # Create a new Telegram client
-client = TelegramClient('kidd', api_id, api_hash)
+client = TelegramClient('kidding', api_id, api_hash)
 
 async def add_users_to_group():
     await client.start(phone=phone_number)
@@ -28,7 +28,7 @@ async def add_users_to_group():
     contacts_df = pd.read_csv(csv_file_path)
 
     # Iterate through the contacts and add them to the group
-    base_delay = 1000  # Initial delay in seconds
+    base_delay = 1 # Initial delay in seconds
     for index, row in contacts_df.iterrows():
         try:
             if pd.isna(row['username']):
@@ -48,7 +48,6 @@ async def add_users_to_group():
         except Exception as e:
             if "FloodWaitError" in str(e):
                 wait_seconds = int(e.split("for ")[-1].split(" seconds")[0])
-                # wait_seconds = 5
                 print(f"Rate limited. Waiting for {wait_seconds} seconds.")
                 time.sleep(wait_seconds)
             else:
